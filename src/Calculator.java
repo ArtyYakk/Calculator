@@ -28,7 +28,7 @@ public class Calculator {
             }
         }
         catch (NumberFormatException e){
-            System.out.println("Error! Not a number");
+            System.out.println("Error! Not number");
         }
         catch(Exception ex){
             System.out.println(ex.getMessage());
