@@ -1,11 +1,13 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Calculator {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        while(true){
-            String usr = sc.nextLine();
+        File file = new File("C:\\Users\\iakon\\IdeaProjects\\Calculator\\input.txt");
             try{
+                Scanner sc = new Scanner(file);
+                String usr = sc.nextLine();
                 String[] musr = usr.split(" ");
                 double a = Double.parseDouble(musr[0]);
                 double b = Double.parseDouble(musr[2]);
@@ -30,12 +32,14 @@ public class Calculator {
                         throw new Exception("Operation Error!");
                 }
             }
-            catch (NumberFormatException e){
+            catch (FileNotFoundException ex){
+                System.out.println("File not found");
+            }
+            catch (NumberFormatException ex){
                 System.out.println("Error! Not number");
             }
             catch(Exception ex){
                 System.out.println(ex.getMessage());
             }
-        }
     }
 }
