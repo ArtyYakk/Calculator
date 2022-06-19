@@ -2,17 +2,26 @@ import java.io.*;
 import java.util.Scanner;
 
 public class Calculator {
+     public static final File file = new File("C:\\Users\\iakon\\IdeaProjects\\Calculator\\input.txt");
+     public static final FileOutputStream fos;
+     public static final Scanner sc;
+
+     static {
+        try {
+            fos = new FileOutputStream("C:\\Users\\iakon\\IdeaProjects\\Calculator\\output.txt");
+            sc = new Scanner(file);
+        }
+        catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public static final PrintStream printStream = new PrintStream(fos);
+    public static String as = null;
+    public static String bs = null;
+    public static String op = null;
     public static void main(String[] args) {
-        File file = new File("C:\\Users\\iakon\\IdeaProjects\\Calculator\\input.txt");
-        FileOutputStream fos;
-        PrintStream printStream = null;
-        String as = null;
-        String bs = null;
-        String op = null;
+
                 try{
-                    Scanner sc = new Scanner(file);
-                    fos = new FileOutputStream("C:\\Users\\iakon\\IdeaProjects\\Calculator\\output.txt");
-                    printStream = new PrintStream(fos);
                     while(sc.hasNextLine()){
                         String usr = sc.nextLine();
                         String[] musr = usr.split(" ");
@@ -48,9 +57,7 @@ public class Calculator {
 
                 catch (FileNotFoundException ex){
                     System.out.println(as + " " + op + " " + bs + " = " + "File not found");
-                    if(printStream != null){
-                        printStream.println(as + " " + op + " " + bs + " = " + "File not found");
-                    }
+                    printStream.println(as + " " + op + " " + bs + " = " + "File not found");
                 }
                 catch (IOException ex){
                     System.out.println(as + " " + op + " " + bs + " = " + "Output error");
@@ -58,15 +65,13 @@ public class Calculator {
                 }
                 catch (NumberFormatException ex){
                     System.out.println(as + " " + op + " " + bs + " = " + "Error! Not number");
-                    if(printStream != null) {
-                        printStream.println(as + " " + op + " " + bs + " = " + "Error! Not number");
-                    }
+                    printStream.println(as + " " + op + " " + bs + " = " + "Error! Not number");
+                    main(null);
                 }
                 catch(Exception ex){
                     System.out.println(as + " " + op + " " + bs + " = " + ex.getMessage());
-                    if(printStream != null) {
-                        printStream.println(as + " " + op + " " + bs + " = " + ex.getMessage());
-                    }
+                    printStream.println(as + " " + op + " " + bs + " = " + ex.getMessage());
+                    main(null);
                 }
     }
 }
